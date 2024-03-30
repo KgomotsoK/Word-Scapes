@@ -2,19 +2,21 @@ import itertools
 import requests
 from bs4 import BeautifulSoup
 
+# Function to generate all possible letter combinations
 def generate_combinations(letters):
-    combinations = set()
+    combinations = set()                                                                         # Using a set ensures uniqueness
 
-    for r in range(1, len(letters) + 1):
+    for r in range(1, len(letters) + 1):                                                         # Generate combinations of different lengths
         for subset in itertools.permutations(letters, r):
             combinations.add(''.join(subset))
 
     return combinations
 
+# Function to find valid words
 def find_valid_words(letters, valid_words, oxford_word_list=None):
-    letters = ''.join(letters).lower()  # Convert the input letters to lowercase
+    letters = ''.join(letters).lower()                                                            # Convert the input letters to lowercase
     combinations = generate_combinations(letters)
-    valid_matches = [w for w in combinations if w.lower() in map(str.lower, valid_words)]
+    valid_matches = [w for w in combinations if w.lower() in map(str.lower, valid_words)]         # Match against the provided wordlist
     answers = []
     if oxford_word_list:
         for word in valid_matches:
